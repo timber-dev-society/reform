@@ -61,7 +61,6 @@ export const Form = ({ children, ...props }) => {
 
   const onSubmit = (event) => {
     event.preventDefault()
-    console.log(validatorRef)
 
     props.onSubmit(state)
   }

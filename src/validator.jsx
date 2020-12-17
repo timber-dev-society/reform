@@ -10,10 +10,8 @@ export const Validator = forwardRef(({ children, ...props }, ref) => {
   const inputProps = {
     ...children.props,
     handleChange: (newValue) => {
-      setValue(newValue)
-      if (props.trigger === 'onChange') { 
-        if (props.regex && !props.regex.test(newValue)) { props.handleChange(newValue, false) }
-      }
+      setValue(newValue) 
+      if (props.regex && !props.regex.test(newValue)) { props.handleChange(newValue, false) }
 
       props.handleChange(newValue, true) 
     },
@@ -21,8 +19,6 @@ export const Validator = forwardRef(({ children, ...props }, ref) => {
 
   useImperativeHandle(ref, () => ({
     handleSubmit: () => {
-      if (props.trigger !== 'onSubmit') { return }
-
       if (props.notEmpty && value.trim() === '') { props.handleChange(value, false) }
     }
   }));
@@ -34,7 +30,6 @@ Validator.kind = Symbols.Validators
 
 Validator.propTypes = {
   children: PropTypes.element.isRequired,
-  trigger: PropTypes.oneOf(['onChange', 'onSubmit']).isRequired,
   required: PropTypes.bool,
   regex: PropTypes.instanceOf(RegExp),
 }
